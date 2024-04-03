@@ -1,5 +1,5 @@
 
- const Blog = () => {
+const Blog = () => {
   return (
     <div>blog</div>
   )
