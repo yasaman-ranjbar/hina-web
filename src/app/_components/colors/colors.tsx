@@ -22,6 +22,7 @@ const ColorBox: React.FC<{ name: string; color: string }> = ({
   color,
 }) => (
   <div
+    lang="en"
     className="w-96 h-60 flex flex-col items-center text-center uppercase"
     style={{ background: color, color: getTextColor(color) }}
   >

@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+html {
+    font-family: var(--font-yekanbakh);
+}
+
+/* default font is yekanbakh but when the lang is en the default font is figtree */
+:lang(en) {
+    font-family: var(--font-figtree);
+}
