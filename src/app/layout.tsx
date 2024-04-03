@@ -1,15 +1,16 @@
-
-import './globals.css';
-import { Figtree } from 'next/font/google'
-import localFont from 'next/font/local'
+import "./globals.css";
+import { Figtree } from "next/font/google";
+import localFont from "next/font/local";
+import Header from "./_components/header/header";
+import Footer from "./_components/footer/footer";
 
 // before web font is downloaded application use default fonts whit swap property
 const figtree = Figtree({
-  display: 'swap',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: "--font-figtree" 
-})
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-figtree",
+});
 
 const yekanbakh = localFont({
   src: [
@@ -49,22 +50,24 @@ const yekanbakh = localFont({
       style: "normal",
     },
   ],
-  variable: '--font-yekanbakh'
+  variable: "--font-yekanbakh",
 });
 
-
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html dir='rtl' className={`${figtree.variable} ${yekanbakh.variable}`}>
-      <body className='flex flex-col min-h-screen font-bold uppercase'>
-        <header className="bg-gray-200 flex items-center justify-center">
-          دوره معماری ریکت
-        </header>
+    <html
+      dir="rtl"
+      className={`dark ${figtree.variable} ${yekanbakh.variable}`}
+    >
+      {/* [80px_1fr_auto] mins header be 80px and all space for children be 1fr and footer be auto base on it's content */}
+      <body className="min-h-screen grid grid-rows-[80px_1fr_auto] bg-white text-base-100 dark:bg-base-100 dark:text-base-content">
+        <Header />
         <div className="flex-1 flex">{children}</div>
-
-        <footer className="bg-gray-200 flex items-center justify-center">
-          footer
-        </footer>
+        <Footer />
       </body>
     </html>
   );
