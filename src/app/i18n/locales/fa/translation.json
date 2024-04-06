@@ -2,5 +2,8 @@
   "resisterToReactApp": "ورود به اپلیکیشن ریکت",
   "register": "ثبت نام",
   "signIn": "ورود",
-  "languageSwitcher": "تغییر زیان از <1>{{lng}}</1> به: "
+  "languageSwitcher": "تغییر زیان از <1>{{lng}}</1> به: ",
+  "homePage":"صفحه اصلی",
+  "ReactCourses":"دوره های ریکت و نکست",
+  "articles":"مطالب و مقالات"
 }

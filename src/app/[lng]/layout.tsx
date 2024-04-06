@@ -1,10 +1,10 @@
 import "./globals.css";
 import { Figtree } from "next/font/google";
 import localFont from "next/font/local";
-import Header from "./_components/header/header";
-import Footer from "./_components/footer/footer";
+import Footer from "./_components/footer";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
+import Header from "./_components/header";
 
 // before web font is downloaded application use default fonts whit swap property
 const figtree = Figtree({
@@ -58,7 +58,7 @@ const yekanbakh = localFont({
 interface LayoutProps {
   children: React.ReactNode;
   params: {
-    lng: any;
+    lng: string;
   };
 }
 
