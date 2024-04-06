@@ -1,0 +1,6 @@
+{
+  "resisterToReactApp": "welcome to React Application",
+  "register": "Registration",
+  "signIn": "Sign In",
+  "languageSwitcher": "Switch from <1>{{lng}}</1> to: "
+}
