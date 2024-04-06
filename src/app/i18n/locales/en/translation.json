@@ -5,5 +5,8 @@
   "languageSwitcher": "Switch from <1>{{lng}}</1> to: ",
   "homePage": "Home",
   "ReactCourses": "React Courses",
-  "articles": "Articles"
+  "articles": "Articles",
+  "welcomeTo":"Welcome To ...",
+  "successWay":"The way to climb to the top of programming",
+  "heroPassage":"No matter where you are on the programming path, with the help of Hina Web experienced teachers, you can climb to higher peaks without limits. We always have your air."
 }

@@ -76,7 +76,7 @@ export default function RootLayout({ children, params: { lng } }: LayoutProps) {
       {/* [80px_1fr_auto] mins header be 80px and all space for children be 1fr and footer be auto base on it's content */}
       <body className="min-h-screen grid grid-rows-[80px_1fr_auto] bg-white text-base-100 dark:bg-base-100 dark:text-base-content px-32">
         <Header lng={lng} />
-        <div className="flex-1 flex">{children}</div>
+        <main>{children}</main>
         <Footer lng={lng} />
       </body>
     </html>
