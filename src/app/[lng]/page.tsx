@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useTranslation } from "../i18n";
 import Button from "./_components/button/button";
+import Loading from "./_components/loading/loading";
 
 type paramsProps = {
   params: {
@@ -26,6 +27,7 @@ export default async function Home({ params: { lng } }: paramsProps) {
               {t("heroPassage")}
             </p>
             <div className="mt-5 flex gap-4">
+              <Loading type="ring" />
               <Button
                 variant="primary"
                 size="large"
