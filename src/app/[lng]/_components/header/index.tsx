@@ -6,7 +6,7 @@ import Image from "next/image";
 import TopNavigation from "./top-navigation";
 
 const Header = ({ lng }: LanguageProps) => {
-  const { t } = useTranslation(lng);
+  const { t } = useTranslation(lng!);
   return (
     <header className="border-b border-base-content dark:border-base-content dark:border-opacity-5 py-6">
       {/* container is'nt centered as a default for centered config tailwind.config */}
