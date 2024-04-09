@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../../_components/badge/badge";
 import { useTranslation } from "@/app/i18n/client";
+import { IconArrowLeftFill, IconClock } from "../../_components/icons/icons";
 
 type CourseCardProps = CourseSummary & {
   lng?: string;
@@ -43,7 +44,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
         </Link>
         <p>{subTitle}</p>
         <div className="flex items-center justify-between">
-          <Badge variant="warning">{duration}</Badge>
+          <Badge variant="warning"><IconClock width={16} height={16} />{duration}</Badge>
           {basePrice}
         </div>
       </div>
@@ -53,6 +54,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
         href={`/course/${slug}`}
       >
         {t("showDetailsCourse")}
+        <IconArrowLeftFill fill="currentColor" />
       </Link>
     </div>
   );
