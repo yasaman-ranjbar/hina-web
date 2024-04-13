@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "../button/button";
 import { useTranslation } from "@/app/i18n/client";
 import { LanguageProps } from "@/types/translation";
+import { IconArrowLeftFill } from "../icons/icons";
 
 const HomeHeroSection = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng!);
@@ -27,6 +28,7 @@ const HomeHeroSection = ({ lng }: LanguageProps) => {
               className="whitespace-nowrap"
             >
               {t("ReactCourses")}
+              <IconArrowLeftFill fill="currentColor" />
             </Button>
             <Button
               variant="neutral"

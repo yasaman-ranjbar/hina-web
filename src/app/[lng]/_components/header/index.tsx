@@ -13,7 +13,9 @@ const Header = ({ lng }: LanguageProps) => {
       <div className="container flex items-center justify-between">
         <Image src="/images/logo2.png" width={50} height={100} alt="hina" />
         <TopNavigation lng={lng} />
-        <span className={`${lng === 'fa' ? 'mr-auto' : 'ml-auto'} `}>{t("register")}</span>
+        <span className={`${lng === "fa" ? "mr-auto" : "ml-auto"} `}>
+          {t("register")}
+        </span>
       </div>
     </header>
   );

@@ -46,7 +46,7 @@ export function useTranslation(lng: string, ns?: string, options?: Record<string
         useEffect(() => {
             if (cookies.i18next === lng) return
             setCookie('i18next', lng, { path: '/' })
-        }, [lng, cookies.i18next])
+        }, [lng, i18n])
     }
     return ret
 }

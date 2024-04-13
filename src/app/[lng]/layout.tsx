@@ -74,7 +74,7 @@ export default function RootLayout({ children, params: { lng } }: LayoutProps) {
       className={`dark ${figtree.variable} ${yekanbakh.variable}`}
     >
       {/* [80px_1fr_auto] mins header be 80px and all space for children be 1fr and footer be auto base on it's content */}
-      <body className="min-h-screen grid grid-rows-[80px_1fr_auto] bg-white text-base-100 dark:bg-base-100 dark:text-base-content px-32">
+      <body className="min-h-screen grid grid-rows-[80px_1fr_auto] bg-white text-base-100 dark:bg-base-100 dark:text-base-content">
         <Header lng={lng} />
         <main>{children}</main>
         <Footer lng={lng} />
