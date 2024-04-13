@@ -8,6 +8,7 @@ import Button from "./_components/button/button";
 import { IconArrowLeftFill } from "./_components/icons/icons";
 import { BlogPostSummary } from "@/types/blog-post-summary-interface";
 import { BlogPostCardList } from "./(blog)/_components/blog-post-card-list";
+import { API_URL } from "@/configs/global";
 
 type paramsProps = {
   params: {
@@ -20,19 +21,17 @@ type paramsProps = {
 // fetch has cashing without sending several req. 
 // if this function is used in the others pages, if this url does not changed only once call this API
 async function getNewestCourses(count: number): Promise<CourseSummary[]> {
-  const res = await fetch(
-    `https://api.classbon.com/api/courses/newest/${count}`, {
-      next: {
-        revalidate:20 //data revalidate after 20 seconds
-      }
-    }
-  );
+  const res = await fetch(`${API_URL}/courses/newest/${count}`, {
+    next: {
+      revalidate: 20, //data revalidate after 20 seconds
+    },
+  });
   // this response cashed in server side
   return res.json();
 }
 
 async function getNewestPosts(count: number): Promise<BlogPostSummary[]> {
-  const res = await fetch(`https://api.classbon.com/api/blog/newest/${count}`, {
+  const res = await fetch(`${API_URL}/blog/newest/${count}`, {
     next: {
       revalidate: 20,
     },
@@ -46,8 +45,7 @@ export default async function Home({ params: { lng } }: paramsProps) {
   const newestBlogPostsData = getNewestPosts(4);
 
   // we can Simultaneous fetch data. since these methods has promise method
-  // we can merged these with promiseAll method
-
+  // we can merged these with promiseAll method.
   // if all of promise is resolved then Promise.all is resolved. if one of these promise is rejected
   // the Promise.all is rejected. and export of these promise is placed to const [newestCourses, newestBlogPosts] as array destracturing
 
