@@ -9,6 +9,8 @@ import { IconArrowLeftFill } from "./_components/icons/icons";
 import { BlogPostSummary } from "@/types/blog-post-summary-interface";
 import { BlogPostCardList } from "./(blog)/_components/blog-post-card-list";
 import { API_URL } from "@/configs/global";
+import { Suspense } from "react";
+import { CardPlaceholder } from "./_components/placeholders";
 
 type paramsProps = {
   params: {
@@ -18,17 +20,19 @@ type paramsProps = {
 
 // render as static rendering as a default rendering ---------------
 
-// fetch has cashing without sending several req. 
+// fetch has cashing without sending several req.
 // if this function is used in the others pages, if this url does not changed only once call this API
-async function getNewestCourses(count: number): Promise<CourseSummary[]> {
-  const res = await fetch(`${API_URL}/courses/newest/${count}`, {
-    next: {
-      revalidate: 20, //data revalidate after 20 seconds
-    },
-  });
-  // this response cashed in server side
-  return res.json();
-}
+// async function getNewestCourses(count: number): Promise<CourseSummary[]> {
+//   await new Promise((resolve) => setTimeout(resolve, 5000))
+//   const res = await fetch(`${API_URL}/courses/newest/${count}`, {
+//     next: {
+//       revalidate: 20, //data revalidate after 20 seconds
+//     },
+//     cache: "no-store",
+//   });
+//   // this response cashed in server side
+//   return res.json();
+// }
 
 async function getNewestPosts(count: number): Promise<BlogPostSummary[]> {
   const res = await fetch(`${API_URL}/blog/newest/${count}`, {
@@ -41,7 +45,6 @@ async function getNewestPosts(count: number): Promise<BlogPostSummary[]> {
 
 export default async function Home({ params: { lng } }: paramsProps) {
   const { t } = await useTranslation(lng);
-  const newestCoursesData = getNewestCourses(4);
   const newestBlogPostsData = getNewestPosts(4);
 
   // we can Simultaneous fetch data. since these methods has promise method
@@ -49,10 +52,7 @@ export default async function Home({ params: { lng } }: paramsProps) {
   // if all of promise is resolved then Promise.all is resolved. if one of these promise is rejected
   // the Promise.all is rejected. and export of these promise is placed to const [newestCourses, newestBlogPosts] as array destracturing
 
-  const [newestCourses, newestBlogPosts] = await Promise.all([
-    newestCoursesData,
-    newestBlogPostsData,
-  ]);
+  const [newestBlogPosts] = await Promise.all([newestBlogPostsData]);
 
   return (
     <>
@@ -70,7 +70,9 @@ export default async function Home({ params: { lng } }: paramsProps) {
           <h2 className="text-2xl font-extrabold">{t("newestCourses")}</h2>
           <p className="mt-3 text-lg">{t("newestCoursesDescription")}</p>
         </div>
-        <CourseCardList courses={newestCourses} />
+        <Suspense fallback={<CardPlaceholder count={4} className="mt-5" />}>
+          <CourseCardList courses={[]} />
+        </Suspense>
       </section>
 
       <section className="px-2 my-40">
