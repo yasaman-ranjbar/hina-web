@@ -20,6 +20,15 @@
   "new": "New",
   "studyTime": "Study Time:",
   "minutes": "Minutes",
-  "AllArticles":"All Articles",
-  "newestArticles":"Latest educational articles"
+  "AllArticles": "All Articles",
+  "newestArticles": "Latest educational articles",
+  "programmingPlatform": "Programming Education Platform",
+  "ContinuousLearning": "Continuous learning - constant improvement",
+  "React&NextTraining": "React and Next training",
+  "SeniorReact": "Senior React",
+  "HinaLinkedin": "Hina in Linkedin",
+  "HinaTelegram": "Hina in Telegram",
+  "HinaYoutube": "Hina in Youtube",
+  "faq":"FAQ",
+  "Terms&privacy":"Terms of use and privacy"
 }
