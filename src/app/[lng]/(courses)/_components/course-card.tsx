@@ -23,7 +23,8 @@ const CourseCard: React.FC<CourseCardProps> = ({
   slug,
   lng,
 }) => {
-    const { t } = useTranslation(lng!);
+  const { t } = useTranslation(lng!);
+  console.log(lng);
   return (
     <div className="card">
       <figure>
@@ -40,7 +41,8 @@ const CourseCard: React.FC<CourseCardProps> = ({
         <Badge variant="accent">{level}</Badge>
       </div>
       <div className="card-body">
-        <Link href={`/course/${slug}`} className="card-title">
+        {/* TODO: Link language check */}
+        <Link href={`fa/courses/${slug}`} className="card-title">
           {title}
         </Link>
         <p>{subTitle}</p>
@@ -49,13 +51,13 @@ const CourseCard: React.FC<CourseCardProps> = ({
             <IconClock width={16} height={16} />
             {duration}
           </Badge>
-          <Price price={basePrice} size="small"/>
+          <Price price={basePrice} size="small" />
         </div>
       </div>
-
+      {/* TODO: Link language check */}
       <Link
         className="card-footer animated-icon justify-center"
-        href={`/course/${slug}`}
+        href={`fa/courses/${slug}`}
       >
         {t("showDetailsCourse")}
         <IconArrowLeftFill fill="currentColor" />

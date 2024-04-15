@@ -83,7 +83,6 @@ export default async function Home({ params: { lng } }: paramsProps) {
           <div className="bg-primary pointer-events-none absolute left-1/2 aspect-square w-1/2 -translate-x-1/2 -top-96 rounded-full opacity-10 blur-3xl"></div>
 
           <h2
-            lang="en"
             className="gradient leading-[1.3] relative z-10 mx-auto inline-block text-[clamp(2rem,6vw,5.5rem)] font-black"
           >
             {t("ReactNext")}
