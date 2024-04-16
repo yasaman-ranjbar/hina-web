@@ -57,7 +57,7 @@ export default async function Home({ params: { lng } }: paramsProps) {
   const [newestBlogPosts] = await Promise.all([newestBlogPostsData]);
 
   return (
-    <>
+    <div>
       <HomeHeroSection />
       <section className="dark:bg-base-75 mt-10">
         <div className="container py-10 flex flex-col lg:flex-row gap-10 xl:gap-5">
@@ -142,6 +142,6 @@ export default async function Home({ params: { lng } }: paramsProps) {
         </p>
         <TestimonialList testimonials={testimonials} />
       </div>
-    </>
+    </div>
   );
 }
