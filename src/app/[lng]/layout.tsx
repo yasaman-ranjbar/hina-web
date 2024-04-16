@@ -5,6 +5,7 @@ import Footer from "./_components/footer";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
 import Header from "./_components/header";
+import QueryProvider from "@/providers/react-query-provider";
 
 // before web font is downloaded application use default fonts whit swap property
 const figtree = Figtree({
@@ -63,7 +64,7 @@ interface LayoutProps {
 }
 
 export async function generateStaticParams() {
-  return languages.map((lng) => ({lng}))
+  return languages.map((lng) => ({ lng }));
 }
 
 export default function RootLayout({ children, params: { lng } }: LayoutProps) {
@@ -75,9 +76,11 @@ export default function RootLayout({ children, params: { lng } }: LayoutProps) {
     >
       {/* [80px_1fr_auto] mins header be 80px and all space for children be 1fr and footer be auto base on it's content */}
       <body className="min-h-screen grid grid-rows-[80px_1fr_auto] bg-white text-base-100 dark:bg-base-100 dark:text-base-content">
-        <Header lng={lng} />
-        <main>{children}</main>
-        <Footer lng={lng} />
+        <QueryProvider>
+          <Header lng={lng} />
+          <main>{children}</main>
+          <Footer lng={lng} />
+        </QueryProvider>
       </body>
     </html>
   );
