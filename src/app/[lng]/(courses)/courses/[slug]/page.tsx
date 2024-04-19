@@ -1,13 +1,11 @@
-import Progress from "@/app/[lng]/_components/progress/progress";
-import Rating from "@/app/[lng]/_components/rating/rating";
 import { API_URL } from "@/configs/global";
 import { CourseDetailsProps } from "@/types/course-details.interface";
 import { CourseAside } from "./_components/courses-aside/courses-aside";
 import { Tab } from "@/types/tab.type";
 import { Tabs } from "@/app/[lng]/_components/tabs/tabs";
-import { Aclonica } from "next/font/google";
 import { Accordion } from "@/app/[lng]/_components/accordion/accordion";
 import { Accordion as AccordionType } from "@/types/accardion";
+import CourseComments from "./_components/comments/course-comments";
 
 interface paramsProps {
   params: { slug: string };
@@ -40,21 +38,20 @@ export default async function CourseDetails({ params }: paramsProps) {
     content: item.answer,
   }));
 
-
-   const tabs: Tab[] = [
-     {
-       label: "مشخصات دوره",
-       content: course.description,
-     },
-     {
-       label: "دیدگاه‌ها و پرسش",
-       content: "course comments",
-     },
-     {
-       label: "سوالات متداول",
-       content: <Accordion data={faqs} />,
-     },
-   ];
+  const tabs: Tab[] = [
+    {
+      label: "مشخصات دوره",
+      content: course.description,
+    },
+    {
+      label: "دیدگاه‌ها و پرسش",
+      content: <CourseComments />,
+    },
+    {
+      label: "سوالات متداول",
+      content: <Accordion data={faqs} />,
+    },
+  ];
 
   return (
     <div className="container grid grid-cols-10 grid-rows-[1fr 1fr] gap-10 py-10">
