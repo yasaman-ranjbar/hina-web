@@ -1,6 +1,6 @@
-import { CommentProps } from "@/types/comment.interface";
+import { Comment } from "@/types/comment.interface";
 
 export interface commentListProps {
-    data: CommentProps[];
+    data: Comment[];
     nextPage: number;
 }

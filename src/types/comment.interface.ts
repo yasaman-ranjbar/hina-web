@@ -1,4 +1,4 @@
-export interface CommentProps {
+export interface Comment {
     id: number;
     date: string;
     userId: number | undefined;

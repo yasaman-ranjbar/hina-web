@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useCourseComments } from "../../_api/get-comments";
+import { Comment } from "@/app/[lng]/_components/comments/comments";
 
 function CourseComments() {
   const { slug } = useParams();
@@ -15,10 +16,8 @@ function CourseComments() {
 
   return (
     <div>
-      {comments?.data.map((p) => (
-        <p key={p.id} className="mb-8">
-          {p.commentText}
-        </p>
+      {comments?.data.map((comment) => (
+        <Comment key={`comment-${comment.id}`} {...comment} variant="info" />
       ))}
     </div>
   );
