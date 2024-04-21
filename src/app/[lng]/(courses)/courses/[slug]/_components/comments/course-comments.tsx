@@ -6,10 +6,16 @@ import { Comment } from "@/app/[lng]/_components/comments/comments";
 import { TextPlaceholder } from "@/app/[lng]/_components/placeholders";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import Button from "@/app/[lng]/_components/button/button";
+import { IconRefresh } from "@/app/[lng]/_components/icons/icons";
+import { useTranslation } from "@/app/i18n/client";
+import { LanguageProps } from "@/types/translation";
+import { Alert } from "@/app/[lng]/_components/alert/alert";
 
-function CourseComments() {
+function CourseComments({lng} : LanguageProps) {
   const { ref, inView } = useInView({});
   const { slug } = useParams();
+  const {t} = useTranslation(lng!)
 
   const {
     data: comments,
@@ -17,7 +23,6 @@ function CourseComments() {
     fetchNextPage,
     hasNextPage,
     isFetching,
-    isFetchingNextPage,
     refetch,
   } = useCourseComments({
     params: {
@@ -32,6 +37,25 @@ function CourseComments() {
     }
   }, [inView, fetchNextPage, hasNextPage]);
   
+  if (error) {
+    return (
+      <>
+        <Alert variant="error">{t("serverError")}</Alert>
+        <div className="text-center mt-3">
+          <Button
+            variant="neutral"
+            className="font-semibold"
+            isOutline={true}
+            shape="wide"
+            onClick={() => refetch()}
+          >
+            <IconRefresh />
+            {t("tryAgain")}
+          </Button>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div>
@@ -47,7 +71,7 @@ function CourseComments() {
         </Fragment>
       ))}
 
-      {isFetchingNextPage ||
+      {isFetching ||
         (hasNextPage && (
           <div ref={ref}>
             <TextPlaceholder />

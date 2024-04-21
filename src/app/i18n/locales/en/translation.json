@@ -30,5 +30,7 @@
   "HinaTelegram": "Hina in Telegram",
   "HinaYoutube": "Hina in Youtube",
   "faq":"FAQ",
-  "Terms&privacy":"Terms of use and privacy"
+  "Terms&privacy":"Terms of use and privacy",
+  "serverError":"Error communicating with the server",
+  "tryAgain":"Try Again"
 }
