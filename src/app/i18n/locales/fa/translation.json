@@ -32,5 +32,9 @@
   "faq":"پرسش های متداول",
   "Terms&privacy":"شرایط استفاده و حریم خصوصی",
   "serverError":"خطا در برقراری ارتباط با سرور",
-  "tryAgain":"تلاش مجدد"
+  "tryAgain":"تلاش مجدد",
+  "topic":"مبحث",
+  "courseDetails":"مشخصات دوره",
+  "comment&Question":"دیدگاه‌ها و پرسش",
+  "courseHeadings":"سرفصل های دوره"
 }

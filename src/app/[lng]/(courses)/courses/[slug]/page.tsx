@@ -6,9 +6,12 @@ import { Tabs } from "@/app/[lng]/_components/tabs/tabs";
 import { Accordion } from "@/app/[lng]/_components/accordion/accordion";
 import { Accordion as AccordionType } from "@/types/accardion";
 import CourseComments from "./_components/comments/course-comments";
+import { CourseChapter } from "@/types/course-chapter.interface";
+import { CourseCurriculum } from "./_components/curriculum/course-curriculum";
+import { useTranslation } from "@/app/i18n";
 
 interface paramsProps {
-  params: { slug: string };
+  params: { slug: string; lng: string };
 }
 
 // this function is a reserved function Next.js and used in dynamic route and create static page
@@ -28,9 +31,22 @@ async function getCourses(slug: string): Promise<CourseDetailsProps> {
   return res.json();
 }
 
-export default async function CourseDetails({ params }: paramsProps) {
+async function getCurriculum(slug: string): Promise<CourseChapter[]> {
+  const res = await fetch(`${API_URL}/courses/${slug}/curriculum`);
+  return res.json();
+}
+
+export default async function CourseDetails({ params}: paramsProps) {
   const { slug } = params;
-  const course = await getCourses(slug);
+  const { lng } = params;
+  const { t } = await useTranslation(lng);
+  const courseData = getCourses(slug);
+  const courseCurriculumData = getCurriculum(slug);
+
+  const [course, courseCurriculum] = await Promise.all([
+    courseData,
+    courseCurriculumData,
+  ]);
 
   const faqs: AccordionType[] = course.frequentlyAskedQuestions.map((item) => ({
     id: item.id,
@@ -40,15 +56,15 @@ export default async function CourseDetails({ params }: paramsProps) {
 
   const tabs: Tab[] = [
     {
-      label: "مشخصات دوره",
+      label: t("courseDetails"),
       content: course.description,
     },
     {
-      label: "دیدگاه‌ها و پرسش",
+      label: t("comment&Question"),
       content: <CourseComments />,
     },
     {
-      label: "سوالات متداول",
+      label: t("faq"),
       content: <Accordion data={faqs} />,
     },
   ];
@@ -72,7 +88,12 @@ export default async function CourseDetails({ params }: paramsProps) {
       <div className="col-span-10 xl:col-span-6 ">
         <Tabs tabs={tabs} />
       </div>
-      <div className="col-span-10 xl:col-span-4 bg-warning"></div>
+      <div className="col-span-10 xl:col-span-4 ">
+        <div className="sticky top-5">
+          <h2 className="mb-5 text-xl">{t("courseHeadings")}</h2>
+          <CourseCurriculum data={courseCurriculum} />
+        </div>
+      </div>
     </div>
   );
 }

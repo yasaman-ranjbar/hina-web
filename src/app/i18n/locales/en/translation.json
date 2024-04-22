@@ -29,8 +29,12 @@
   "HinaLinkedin": "Hina in Linkedin",
   "HinaTelegram": "Hina in Telegram",
   "HinaYoutube": "Hina in Youtube",
-  "faq":"FAQ",
-  "Terms&privacy":"Terms of use and privacy",
-  "serverError":"Error communicating with the server",
-  "tryAgain":"Try Again"
+  "faq": "FAQ",
+  "Terms&privacy": "Terms of use and privacy",
+  "serverError": "Error communicating with the server",
+  "tryAgain": "Try Again",
+  "topic": "Topic",
+  "courseDetails": "Course Details",
+  "comment&Question": "Comments and questions",
+  "courseHeadings": "Course Headings"
 }
