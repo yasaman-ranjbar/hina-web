@@ -1,8 +1,9 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "tailwindcss/utilities";
 
 @import "../../tailwind/components.css";
+
+@import "tailwindcss/utilities";
 
 /* for overwrite styles tailwind we can use @layer to access different tailwind sub sections that names base */
 /* change base styles */

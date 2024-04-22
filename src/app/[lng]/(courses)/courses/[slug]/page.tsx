@@ -9,9 +9,14 @@ import CourseComments from "./_components/comments/course-comments";
 import { CourseChapter } from "@/types/course-chapter.interface";
 import { CourseCurriculum } from "./_components/curriculum/course-curriculum";
 import { useTranslation } from "@/app/i18n";
+import Image from "next/image";
+import { VideoPlayer } from "@/app/[lng]/_components/video-palyer/video-player";
 
 interface paramsProps {
-  params: { slug: string; lng: string };
+  params: {
+    slug: string;
+    lng: string;
+  };
 }
 
 // this function is a reserved function Next.js and used in dynamic route and create static page
@@ -36,7 +41,7 @@ async function getCurriculum(slug: string): Promise<CourseChapter[]> {
   return res.json();
 }
 
-export default async function CourseDetails({ params}: paramsProps) {
+export default async function CourseDetails({ params }: paramsProps) {
   const { slug } = params;
   const { lng } = params;
   const { t } = await useTranslation(lng);
@@ -80,7 +85,22 @@ export default async function CourseDetails({ params}: paramsProps) {
           {course.subTitle}
         </h2>
 
-        <div className=" mt-5">Video Player Component</div>
+        <div className=" mt-5">
+          {course.videoUrl ? (
+            <VideoPlayer
+              src={course.videoUrl}
+              poster={`${API_URL}/picture/${course.coverImageId}`}
+            />
+          ) : (
+            <Image
+              src={`${API_URL}/picture/${course.coverImageId}`}
+              alt={course.title}
+              width={550}
+              height={327}
+              className="w-full"
+            />
+          )}
+        </div>
       </div>
       <div className="col-span-10 xl:col-span-3 ">
         <CourseAside {...course} />
@@ -91,7 +111,7 @@ export default async function CourseDetails({ params}: paramsProps) {
       <div className="col-span-10 xl:col-span-4 ">
         <div className="sticky top-5">
           <h2 className="mb-5 text-xl">{t("courseHeadings")}</h2>
-          <CourseCurriculum data={courseCurriculum} />
+          <CourseCurriculum lng={lng} data={courseCurriculum} />
         </div>
       </div>
     </div>
