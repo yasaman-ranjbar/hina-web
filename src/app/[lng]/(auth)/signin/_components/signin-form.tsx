@@ -6,18 +6,35 @@ import { LanguageProps } from "@/types/translation";
 import { SignInProps } from "../types/siginin.types";
 import { useForm } from "react-hook-form";
 import { TextInput } from "@/app/[lng]/_components/form-input";
+import { useSignIn } from "../_api/siginin";
+import { useRouter } from "next/navigation";
+import { useNotificationStore } from "@/stores/notification.store";
 
 const SignInForm = ({ lng }: LanguageProps) => {
   const { t } = useTranslation(lng!);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<SignInProps>();
 
+  const showNotification = useNotificationStore((state) => state.showNotification)
+
+  const router = useRouter();
+
+  const signIn = useSignIn({
+    onSuccess: () => {
+      router.push(`/fa/verify?mobile=${getValues("mobile")}`);
+      //  showNotification({
+      //    message: "کد تایید به شماره شما ارسال شد",
+      //    type: "info",
+      //  });
+    },
+  });
+
   const onSubmit = (data: SignInProps) => {
-    console.log(data);
+    signIn.submit(data);
   };
 
   return (
@@ -28,13 +45,6 @@ const SignInForm = ({ lng }: LanguageProps) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 mt-16"
       >
-        {/* <TextBox
-          {...register("mobile", {
-            required: t("requiredMobile"),
-          })}
-          placeholder={t("mobileNumber")}
-        /> */}
-
         <TextInput<SignInProps>
           placeholder={t("mobileNumber")}
           register={register}
