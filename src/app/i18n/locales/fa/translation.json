@@ -42,5 +42,6 @@
   "loginDescription":"دنیای شگفت انگیز برنامه نویسی در انتظار شماست!",
   "loginRegister":"ورود | ثبت نام",
   "requiredMobile":"شماره موبایل الزامی است",
-  "NumberMustBe11Digits":"شماره موبایل باید 11 رقم باشد"
+  "NumberMustBe11Digits":"شماره موبایل باید 11 رقم باشد",
+  "sendingVerificationCode":"کد تایید به شماره شما ارسال شد"
 }

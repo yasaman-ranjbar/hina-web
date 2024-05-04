@@ -26,10 +26,10 @@ const SignInForm = ({ lng }: LanguageProps) => {
   const signIn = useSignIn({
     onSuccess: () => {
       router.push(`/fa/verify?mobile=${getValues("mobile")}`);
-      //  showNotification({
-      //    message: "کد تایید به شماره شما ارسال شد",
-      //    type: "info",
-      //  });
+       showNotification({
+         message: t("sendingVerificationCode"),
+         type: "info",
+       });
     },
   });
 

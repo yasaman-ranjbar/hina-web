@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  reactStrictMode:false , // for call useEffect towise
   images: {
     remotePatterns: [
       {

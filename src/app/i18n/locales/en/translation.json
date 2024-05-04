@@ -36,5 +36,6 @@
   "topic": "Topic",
   "courseDetails": "Course Details",
   "comment&Question": "Comments and questions",
-  "courseHeadings": "Course Headings"
+  "courseHeadings": "Course Headings",
+  "sendingVerificationCode":"verification code is sent"
 }
