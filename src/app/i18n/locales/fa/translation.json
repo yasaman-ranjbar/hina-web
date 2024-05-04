@@ -43,5 +43,12 @@
   "loginRegister":"ورود | ثبت نام",
   "requiredMobile":"شماره موبایل الزامی است",
   "NumberMustBe11Digits":"شماره موبایل باید 11 رقم باشد",
-  "sendingVerificationCode":"کد تایید به شماره شما ارسال شد"
+  "sendingVerificationCode":"کد تایید به شماره شما ارسال شد",
+  "confirmationCode":"کد تایید",
+  "confirmationCodeDesc":"دنیای شگفت انگیز برنامه نویسی در انتظار شماست!",
+  "resendCode":"ارسال مجدد کد تایید",
+  "confirm&continue":"تایید و ادامه",
+  "forEditMobile":"برای اصلاح شماره موبایل",
+  "here":"اینجا",
+  "click":"کلیک کنید"
 }

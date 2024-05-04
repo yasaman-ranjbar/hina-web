@@ -37,5 +37,12 @@
   "courseDetails": "Course Details",
   "comment&Question": "Comments and questions",
   "courseHeadings": "Course Headings",
-  "sendingVerificationCode":"verification code is sent"
+  "sendingVerificationCode": "verification code is sent",
+  "confirmationCode": "Confirmation Code",
+  "confirmationCodeDesc": "The wonderful world of programming is waiting for you!",
+  "resendCode": "Resend Confirmation Code",
+  "confirm&continue": "Confirm and Continue",
+  "forEditMobile": "For Edit Mobile Number",
+  "here": "Here",
+  "click": "Click"
 }

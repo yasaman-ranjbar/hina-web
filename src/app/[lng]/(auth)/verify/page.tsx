@@ -1,5 +1,7 @@
+import VerificationForm from "./_components/verification-form";
+
 const Verify = () => {
-  return <div>Verify</div>;
+  return <VerificationForm />;
 };
 
 export default Verify;
