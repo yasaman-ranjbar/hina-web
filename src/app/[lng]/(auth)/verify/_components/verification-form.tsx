@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { VerifyUserModel } from "../types/verify-user.type";
 import { useNotificationStore } from "@/stores/notification.store";
 import { useSearchParams } from "next/navigation";
+import { useSendAuthCode } from "../_api/send-auth-code";
 
 const getTwoMinutesFromNow = () => {
   const time = new Date();
@@ -40,45 +41,43 @@ const VerificationForm = ({ lng }: LanguageProps) => {
   const params = useSearchParams();
   const username = params.get("mobile")!;
 
-  // const sendAuthCode = useSendAuthCode({
-  //   onSuccess: () => {
-  //     showNotification({
-  //       type: "info",
-  //       message: "کد تایید به شماره شما ارسال شد",
-  //     });
-  //   },
-  // });
+  const sendAuthCode = useSendAuthCode({
+    onSuccess: () => {
+      showNotification({
+        type: "info",
+        message: "کد تایید به شماره شما ارسال شد",
+      });
+    },
+  });
 
-  // const onSubmit = (data: VerifyUserModel) => {
-  //   data.username = username;
-  //   console.log(data);
-  // };
+  const onSubmit = (data: VerifyUserModel) => {
+    data.username = username;
+  };
 
-  // register("code", {
-  //   validate: (value: string) => (value ?? "").length === 5,
-  // });
+  register("code", {
+    validate: (value: string) => (value ?? "").length === 5,
+  });
 
-  // const resendAuthCode = () => {
-  //   timerRef.current?.restart(getTwoMinutesFromNow());
-  //   setShowResendCode(false);
-  //   sendAuthCode.submit(username);
-  //   authCodeRef.current?.clear();
-  // };
+  const resendAuthCode = () => {
+    timerRef.current?.restart(getTwoMinutesFromNow());
+    setShowResendCode(false);
+    sendAuthCode.submit(username);
+    authCodeRef.current?.clear();
+  };
 
   return (
     <>
       <h5 className="text-2xl">{t("confirmationCode")}</h5>
       <p className="mt-2">{t("confirmationCodeDesc")}</p>
       <form
-        // onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 mt-10 flex-1"
       >
         <AuthCode
           className="mt-10"
           ref={authCodeRef}
           onChange={(value) => {
-            console.log(value);
-            // setValue("code", value, { shouldValidate: true });
+            setValue("code", value, { shouldValidate: true });
           }}
         />
 
@@ -96,17 +95,13 @@ const VerificationForm = ({ lng }: LanguageProps) => {
         <Button
           isLink
           className="!bg-transparent !border-transparent !outline-none"
-          //   isDisabled={!showResendCode}
-          onClick={authCodeRef.current?.clear}
+          isDisabled={!showResendCode}
+          onClick={resendAuthCode}
         >
           {t("resendCode")}
         </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          //   isDisabled={!isValid}
-        >
-          {t("confirm&continue")}{" "}
+        <Button type="submit" variant="primary" isDisabled={!isValid}>
+          {t("confirm&continue")}
         </Button>
         <div className="flex items-start gap-1 justify-center mt-auto">
           <span>{t("forEditMobile")}</span>
