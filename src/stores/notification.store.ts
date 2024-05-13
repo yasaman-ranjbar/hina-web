@@ -1,5 +1,5 @@
 import { Notification } from "@/types/notification.interface"
-import { generateId } from "@/utils/string";
+import { generateID } from "@/utils/string";
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
@@ -13,7 +13,7 @@ type NotificationSate = {
 export const useNotificationStore = create<NotificationSate>()(devtools((set, get) => ({
     notifications: [], //initial state
     showNotification: (notif) => {
-        const id = generateId();
+        const id = generateID();
         set(state => ({
             notifications: [...state.notifications, { id, ...notif }]
         }));
