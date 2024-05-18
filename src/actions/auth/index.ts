@@ -6,6 +6,8 @@ import { serverActionWrapper } from "../server-action-wrapper";
 import { createData } from "@/core/http-service/http-service";
 import { SignInProps } from "@/app/[lng]/(auth)/signin/types/siginin.types";
 import { SendAuthCodeProps } from "@/app/[lng]/(auth)/verify/types/verify-user.type";
+import { Problem } from "@/types/http-errors.interface";
+import { signIn, signOut } from "@/auth";
 
 export async function signInAction(
     formState: OperationResult<string> | null,
@@ -39,4 +41,32 @@ export async function SendAuthCode(
             await createData<SendAuthCodeProps, string>("/send-auth-code",
                 { mobile })
     );
+}
+
+
+// export async function verify(
+//     state: Problem | undefined,
+//     formData: FormData
+// ) {
+//     try {
+//         await signIn("credentials", formData);
+//     } catch (error: unknown) {
+//         //todo
+//     }
+// }
+
+export async function verify(state: Problem | undefined, formData: FormData) {
+    try {
+        await signIn("credentials", formData);
+    } catch (error) {
+        return {
+            status: 0,
+            title: "",
+        } satisfies Problem;
+    }
+}
+
+
+export async function logout() {
+    await signOut();
 }

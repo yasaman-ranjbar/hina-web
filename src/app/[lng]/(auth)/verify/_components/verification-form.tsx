@@ -7,13 +7,13 @@ import { Timer } from "@/app/[lng]/_components/timer/timer";
 import { TimerRef } from "@/app/[lng]/_components/timer/timer.types";
 import { useTranslation } from "@/app/i18n/client";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { VerifyUserModel } from "../types/verify-user.type";
 import { useNotificationStore } from "@/stores/notification.store";
 import { useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
-import { SendAuthCode } from "@/actions/auth";
+import { SendAuthCode, verify } from "@/actions/auth";
 
 const getTwoMinutesFromNow = () => {
   const time = new Date();
@@ -47,6 +47,10 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
     SendAuthCode,
     null
   );
+   const [verifyState, verifyAction] = useFormState(verify, undefined);
+
+  const [verifyPendingState, startTransition] = useTransition()
+
 
   const params = useSearchParams();
   const username = params.get("mobile")!;
@@ -70,9 +74,16 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
     }
   }, [sendAuthCodeState, showNotification]);
 
-  const onSubmit = (data: VerifyUserModel) => {
-    data.username = username;
-  };
+   const onSubmit = (data: VerifyUserModel) => {
+     data.username = username;
+     const formData = new FormData();
+     formData.append("username", data.username);
+     formData.append("code", data.code);
+
+     startTransition(async () => {
+       verifyAction(formData);
+     });
+   };
 
   register("code", {
     validate: (value: string) => (value ?? "").length === 5,
@@ -120,7 +131,7 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
         >
           {t("resendCode")}
         </Button>
-        <Button type="submit" variant="primary" isDisabled={!isValid}>
+        <Button type="submit" variant="primary" isLoading={verifyPendingState} isDisabled={!isValid}>
           {t("confirm&continue")}
         </Button>
         <div className="flex items-start gap-1 justify-center mt-auto">
