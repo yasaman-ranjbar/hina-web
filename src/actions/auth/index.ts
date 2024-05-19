@@ -1,12 +1,10 @@
 "use server";
 
 import { OperationResult } from "@/types/operation-result";
-import { redirect } from "next/navigation";
 import { serverActionWrapper } from "../server-action-wrapper";
 import { createData } from "@/core/http-service/http-service";
 import { SignInProps } from "@/app/[lng]/(auth)/signin/types/siginin.types";
-import { SendAuthCodeProps } from "@/app/[lng]/(auth)/verify/types/verify-user.type";
-import { Problem } from "@/types/http-errors.interface";
+import { SendAuthCodeProps, VerifyUserModel } from "@/app/[lng]/(auth)/verify/types/verify-user.type";
 import { signIn, signOut } from "@/auth";
 
 export async function signInAction(
@@ -44,25 +42,19 @@ export async function SendAuthCode(
 }
 
 
-// export async function verify(
-//     state: Problem | undefined,
-//     formData: FormData
-// ) {
-//     try {
-//         await signIn("credentials", formData);
-//     } catch (error: unknown) {
-//         //todo
-//     }
-// }
-
-export async function verify(state: Problem | undefined, formData: FormData) {
+export async function verify(prevState: OperationResult<void> | undefined, model: VerifyUserModel) {
     try {
-        await signIn("credentials", formData);
-    } catch (error) {
+        await signIn("credentials", {
+            username: model.username,
+            code: model.code,
+            redirect: false,
+        });
         return {
-            status: 0,
-            title: "",
-        } satisfies Problem;
+            isSuccess: true,
+        } satisfies OperationResult<void>
+    } catch (error) {
+        // console.log(error);
+        //    throw new Error('');
     }
 }
 

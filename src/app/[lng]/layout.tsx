@@ -8,6 +8,7 @@ import Header from "./_components/header";
 import QueryProvider from "@/providers/react-query-provider";
 import  NextTopLoader  from "nextjs-toploader";
 import { Notifications } from "./_components/notification/notification";
+import AuthProvider from "@/providers/auth-provider";
 
 // before web font is downloaded application use default fonts whit swap property
 const figtree = Figtree({
@@ -80,11 +81,13 @@ export default function RootLayout({ children, params: { lng } }: LayoutProps) {
       <body className="min-h-screen grid grid-rows-[80px_1fr_auto] bg-white text-base-100 dark:bg-base-100 dark:text-base-content">
         <NextTopLoader showSpinner={false} color="var(--color-primary)" />
         <Notifications />
-        <QueryProvider>
-          <Header lng={lng} />
-          <main>{children}</main>
-          <Footer lng={lng} />
-        </QueryProvider>
+        <AuthProvider>
+          <QueryProvider>
+            <Header lng={lng} />
+            <main>{children}</main>
+            <Footer lng={lng} />
+          </QueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );

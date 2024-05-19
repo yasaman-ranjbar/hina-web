@@ -1,21 +1,15 @@
-"use client";
-
-import { useTranslation } from "@/app/i18n/client";
 import { LanguageProps } from "@/types/translation";
 import Image from "next/image";
 import TopNavigation from "./top-navigation";
-import { useState } from "react";
-import { languages } from "@/app/i18n/settings";
-import Link from "next/link";
 import ChangeLanguage from "../change-language/change-language";
+import HeaderUserSection from "./header-user-section";
 
-const Header = ({ lng }: LanguageProps) => {
-  const { t } = useTranslation(lng!);
-  const [isOpen, setIsOpen] = useState(false);
+const Header = async ({ lng }: LanguageProps) => {
 
-  const openHandler = () => {
-    setIsOpen((prev) => !prev);
-  };
+  // when use auth then all routes be dynamically change
+  // because we use cookie then all pages be dynamic
+  // then do not use auth in layout and 
+  // const session = await auth();
 
   return (
     <header className="border-b border-base-content dark:border-base-content dark:border-opacity-5 py-6">
@@ -24,9 +18,7 @@ const Header = ({ lng }: LanguageProps) => {
         <Image src="/images/logo2.png" width={50} height={100} alt="hina" />
         <TopNavigation lng={lng} />
         <div className="flex items-center gap-2">
-          <span className={`${lng === "fa" ? "mr-auto" : "ml-auto"} `}>
-            {t("register")}
-          </span>
+          <HeaderUserSection lng={lng} />
           <ChangeLanguage lng={lng} />
         </div>
       </div>

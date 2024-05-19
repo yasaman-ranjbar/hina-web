@@ -11,9 +11,10 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { VerifyUserModel } from "../types/verify-user.type";
 import { useNotificationStore } from "@/stores/notification.store";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
 import { SendAuthCode, verify } from "@/actions/auth";
+import { getSession } from "next-auth/react";
 
 const getTwoMinutesFromNow = () => {
   const time = new Date();
@@ -31,6 +32,7 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
   const { t } = useTranslation(lng!);
   const [showResendCode, setShowResendCode] = useState<boolean>(false);
   const timerRef = useRef<TimerRef>(null);
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -47,13 +49,31 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
     SendAuthCode,
     null
   );
-   const [verifyState, verifyAction] = useFormState(verify, undefined);
+  const [verifyState, verifyAction] = useFormState(verify, undefined);
 
-  const [verifyPendingState, startTransition] = useTransition()
-
+  const [verifyPendingState, startTransition] = useTransition();
 
   const params = useSearchParams();
   const username = params.get("mobile")!;
+
+  useEffect(() => {
+    if (verifyState && !verifyState.isSuccess) {
+      showNotification({
+        message: "",
+        type: "error",
+      });
+    } else if (verifyState?.isSuccess) {
+      const fetchSession = async () => await getSession();
+      fetchSession();
+      router.push("/fa/student/courses");
+      // console.log("lng", lng);
+      // if (lng === "fa") {
+      //   router.push("/fa/student/courses");
+      // } else {
+      //   router.push("/en/student/courses");
+      // }
+    }
+  });
 
   useEffect(() => {
     if (
@@ -74,16 +94,16 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
     }
   }, [sendAuthCodeState, showNotification]);
 
-   const onSubmit = (data: VerifyUserModel) => {
-     data.username = username;
-     const formData = new FormData();
-     formData.append("username", data.username);
-     formData.append("code", data.code);
+  const onSubmit = (data: VerifyUserModel) => {
+    data.username = username;
 
-     startTransition(async () => {
-       verifyAction(formData);
-     });
-   };
+    startTransition(async () => {
+      verifyAction({
+        username: data.username,
+        code: data.code,
+      });
+    });
+  };
 
   register("code", {
     validate: (value: string) => (value ?? "").length === 5,
@@ -131,7 +151,12 @@ const VerificationForm = ({ lng, mobile }: VerificationFormProps) => {
         >
           {t("resendCode")}
         </Button>
-        <Button type="submit" variant="primary" isLoading={verifyPendingState} isDisabled={!isValid}>
+        <Button
+          type="submit"
+          variant="primary"
+          isLoading={verifyPendingState}
+          isDisabled={!isValid}
+        >
           {t("confirm&continue")}
         </Button>
         <div className="flex items-start gap-1 justify-center mt-auto">

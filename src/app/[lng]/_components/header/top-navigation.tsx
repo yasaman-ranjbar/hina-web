@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TopNavigation: React.FC<LanguageProps> = ({ lng }) => {
-  const { t } = useTranslation(lng);
+  const { t } = useTranslation(lng!);
   const menuItems: NavigationProps[] = [
     {
       title: t("homePage"),
